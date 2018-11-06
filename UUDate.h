@@ -23,6 +23,7 @@ private:
 	int day_;
 	int month_;
 	int year_;
+	int monthThreshold_[12]{ 31,28,31,30,31,31,31,31,31,31,30,31 };
 	std::string date_;
 
 public:
@@ -42,6 +43,8 @@ public:
 	void SetMonth(int month);
 	int GetYear() const;
 	void SetYear(int year);
+
+	int GetThreshold(int month);
 
 	void IncrementDate();//Increment the current date by one day
 

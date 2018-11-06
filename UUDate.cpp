@@ -13,6 +13,11 @@
 #include "UUDate.h"
 #include <string>
 #include <iostream>
+#include <sstream>
+#include <vector>
+#include <array>
+
+
 
 UUDate::UUDate() {
 	//Initialise the date to 01/01/2000
@@ -31,24 +36,31 @@ UUDate::UUDate(int day, int month, int year) {
 UUDate::UUDate(std::string date) {
 	//TODO - Add your implementation here
 	//PARSE CODE
-
+	std::string holdDate[3];
+	std::stringstream ss(date);
+	std::string token;
+	
+	int i = 0;
+	
+	while (std::getline(ss, token, '/')) {
+		holdDate[i] = token;
+		std::cout << token << std::endl;
+		i++;
+	}
 }
 
 void UUDate::IncrementDate() {
 	int dayINC = GetDay();
 	int monthINC = GetMonth();
 	int yearINC = GetYear();
+	int numDays = GetThreshold(monthINC);
 
-	//======31 days
-	if (monthINC == 1 || monthINC == 3 || monthINC == 5 || monthINC == 7 || monthINC == 8 || monthINC == 10 || monthINC == 12)
-	{
-
-		if (dayINC == 31) {
-
+	//..months 31 days
+	if (numDays == 31) {
+		if (dayINC > 30) {
 			dayINC = 1;
 			monthINC++;
 			if (monthINC > 12) {
-				monthINC = 1;
 				yearINC++;
 			}
 		}
@@ -57,10 +69,9 @@ void UUDate::IncrementDate() {
 		}
 	}
 
-	//======30 days
-	else if (monthINC == 4 || monthINC == 6 || monthINC == 9 || monthINC == 11)
-	{
-		if (dayINC > 30) {
+	//..months 30 days
+	else if (numDays == 30) {
+		if (dayINC > 29) {
 			dayINC = 1;
 			monthINC++;
 		}
@@ -68,40 +79,20 @@ void UUDate::IncrementDate() {
 			dayINC++;
 		}
 	}
-
-
-	//======other
-	else if (monthINC == 2)
-	{
+	
+	//..february
+	else if (numDays == 28) {
 		if ((yearINC % 4) == 0) {
-
-			//NOT LEAP YEAR
-			if ((yearINC % 100) == 0)
-			{
-				if (dayINC > 28) {
-					dayINC = 1;
-					monthINC++;
-				}
-				else {
-					dayINC++;
-				}
+			if (dayINC > 28) {
+				dayINC = 1;
+				monthINC++;
 			}
-
-			//LEAPYEAR
-			else
-			{
-				if (dayINC > 29) {
-					dayINC = 1;
-					monthINC++;
-				}
-				else {
-					dayINC++;
-				}
+			else {
+				dayINC++;
 			}
 		}
-
-		else if ((yearINC % 4) != 0) {
-			if (dayINC = 28) {
+		else {
+			if (dayINC > 27) {
 				dayINC = 1;
 				monthINC++;
 			}
@@ -110,7 +101,7 @@ void UUDate::IncrementDate() {
 			}
 		}
 	}
-
+	
 	//=====SETTING DATE======
 	SetDay(dayINC);
 	SetMonth(monthINC);
@@ -164,4 +155,11 @@ std::string UUDate::GetDate() {
 
 	date_ = strDay + "/" + strMonth + "/" + strYear;
 	return date_;
+}
+
+int UUDate::GetThreshold(int month) {
+	int days_, i;
+	i = (month - 1);
+	days_ = monthThreshold_[i];
+	return days_;
 }
