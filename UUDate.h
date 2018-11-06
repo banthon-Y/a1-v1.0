@@ -23,7 +23,7 @@ private:
 	int day_;
 	int month_;
 	int year_;
-	int monthThreshold_[12]{ 31,28,31,30,31,31,31,31,31,31,30,31 };
+	int monthThreshold_[12]{31,28,31,30,31,30,31,31,30,31,30,31};
 	std::string date_;
 
 public:

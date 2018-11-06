@@ -19,10 +19,15 @@ int main() {
 
 	//TODO - Add your test code here
 
+	UUDate myDate("30/08/1997");
+	 
+	UUDate myDate2("6/11/2018");
+
+	std::cout << myDate.Between(myDate2) << std::endl;
+
+
+
 	//Remember to test your code thoroughly before running it against the tests in github
-	UUDate date(30, 12, 2000);
-	cout << date.GetDate() << endl;
-	date.IncrementDate();
-	cout << "New: " << date.GetDate() << endl;
+	
 	return 0;
 }

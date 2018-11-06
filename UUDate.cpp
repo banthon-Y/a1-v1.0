@@ -9,15 +9,11 @@
 * Copyright notice - aye
 */
 
-
 #include "UUDate.h"
-#include <string>
 #include <iostream>
 #include <sstream>
-#include <vector>
 #include <array>
-
-
+#include <string>
 
 UUDate::UUDate() {
 	//Initialise the date to 01/01/2000
@@ -34,8 +30,7 @@ UUDate::UUDate(int day, int month, int year) {
 }
 
 UUDate::UUDate(std::string date) {
-	//TODO - Add your implementation here
-	//PARSE CODE
+	//split code from the string to intergers
 	std::string holdDate[3];
 	std::stringstream ss(date);
 	std::string token;
@@ -44,9 +39,11 @@ UUDate::UUDate(std::string date) {
 	
 	while (std::getline(ss, token, '/')) {
 		holdDate[i] = token;
-		std::cout << token << std::endl;
 		i++;
 	}
+	SetDay(std::stoi(holdDate[0]));
+	SetMonth(std::stoi(holdDate[1]));
+	SetYear(std::stoi(holdDate[2]));
 }
 
 void UUDate::IncrementDate() {
@@ -110,8 +107,61 @@ void UUDate::IncrementDate() {
 }
 
 int UUDate::Between(UUDate date) {
-	//TODO - Add your implementation here
-	return 0;
+	//initialize variables
+	int a; //used in deciding which date is bigger
+	int yearB = date.GetYear();
+	int monthB = date.GetMonth();
+	int dayB = date.GetDay();
+	//initializing the 2 dates into variables for ease
+	std::string dateB = GetDate();
+	std::string dateA = date.GetDate();
+	
+	//find which date is bigger--------         a=1 means inputted year is bigger       a=0 means inputted date is smaller
+	if (date.GetYear() > GetYear()) {
+		a = 1;
+	}
+	else if (date.GetYear() < GetYear()) {
+		a = 0;
+	}
+	else if (date.GetYear() == GetYear()) 
+	{
+		if (date.GetMonth() > GetMonth()) {
+			a = 1;
+		}
+		else if (date.GetMonth() < GetMonth()) {
+			a = 0;
+		}
+		else if (date.GetMonth() == GetMonth()) 
+		{
+			if (date.GetDay() > GetDay()) {
+				a = 1;
+			}
+			else if (date.GetDay() < GetDay()) {
+				a = 0;
+			}
+		}
+	}
+
+	int count = 0;
+	//Check for a change in the 2 dates by counting incriments
+	if (a==1) {
+		while (dateA.compare(GetDate()) != 0)
+		{
+			IncrementDate();
+			count++;
+		}
+	}
+
+	//Check for a Change in the 2 dates by counting incriments
+	else {
+		while (dateB.compare(date.GetDate()) != 0)
+		{
+			date.IncrementDate();
+			count++;
+		}
+	}
+
+	return count;
 }
 
 int UUDate::GetDay() const {
