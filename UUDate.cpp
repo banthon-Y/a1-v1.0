@@ -140,9 +140,9 @@ int UUDate::Between(UUDate date) {
 			else if (date.GetDay() < GetDay()) {
 				a = 0;
 			}
-			//else if (date.GetDay() == GetDay()) {
-			//	return 0;
-			//}
+			else if (date.GetDay() == GetDay()) {
+				return 0;
+			}
 		}
 	}
 
