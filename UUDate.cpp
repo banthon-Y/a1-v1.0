@@ -116,7 +116,8 @@ int UUDate::Between(UUDate date) {
 	std::string dateB = GetDate();
 	std::string dateA = date.GetDate();
 	
-	//find which date is bigger--------         a=1 means inputted year is bigger       a=0 means inputted date is smaller
+	//------------find which date is bigger-------- 
+	//       a=1 inputted is bigger       a=0 inputted is smaller
 	if (date.GetYear() > GetYear()) {
 		a = 1;
 	}
@@ -139,10 +140,14 @@ int UUDate::Between(UUDate date) {
 			else if (date.GetDay() < GetDay()) {
 				a = 0;
 			}
+			//else if (date.GetDay() == GetDay()) {
+			//	return 0;
+			//}
 		}
 	}
 
 	int count = 0;
+	
 	//Check for a change in the 2 dates by counting incriments
 	if (a==1) {
 		while (dateA.compare(GetDate()) != 0)

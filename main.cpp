@@ -21,7 +21,7 @@ int main() {
 
 	UUDate myDate("30/08/1997");
 	 
-	UUDate myDate2("6/11/2018");
+	UUDate myDate2("30/08/1997");
 
 	std::cout << myDate.Between(myDate2) << std::endl;
 
