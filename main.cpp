@@ -17,16 +17,6 @@ using namespace std;
 
 int main() {
 
-	//TODO - Add your test code here
-
-	UUDate myDate("30/08/1997");
-	 
-	UUDate myDate2("30/08/1997");
-
-	std::cout << myDate.Between(myDate2) << std::endl;
-
-
-
 	//Remember to test your code thoroughly before running it against the tests in github
 	
 	return 0;
